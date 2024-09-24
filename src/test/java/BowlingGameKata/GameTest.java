@@ -15,8 +15,21 @@ public class GameTest {
         Assertions.assertEquals(testRollData[1], game.score());
     }
 
+    @ParameterizedTest
+    @MethodSource(value = "testFrameData")
+    public void testFrame(int[] testFrameData){
+        Game game = new Game();
+        game.frame(testFrameData[0], testFrameData[1]);
+        Assertions.assertEquals(testFrameData[2], game.score());
+    }
+
     @SuppressWarnings("unused")
     public static int[][] testRollData(){
-        return new int[][]{{0,0},{6,6}};
+        return new int[][]{{0,0},{6,6},{13,0},{-2,0}};
+    }
+
+    @SuppressWarnings("unused")
+    public static int[][] testFrameData(){
+        return new int[][]{{0,0,0},{13,0,0},{6,6,12}};
     }
 }

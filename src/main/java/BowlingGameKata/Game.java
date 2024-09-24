@@ -6,10 +6,12 @@ public class Game {
     private int score = 0;
 
     void roll(int pinsDropped){
-        this.score += pinsDropped;
+        if (pinsDropped <= 10 && pinsDropped >= 0){
+            this.score += pinsDropped;
+        }
     }
 
-    void frameRolls(int firstRoll, int secondRoll){
+    void frame(int firstRoll, int secondRoll){
         roll(firstRoll);
         roll(secondRoll);
     }
