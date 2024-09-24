@@ -16,28 +16,48 @@ public class Game {
 
     void frame(int firstRoll, int secondRoll){
         if (isSpare) {
-            roll(firstRoll*2);
-            if(firstRoll!=10){
-                roll(secondRoll);
-            }
-            isSpare = false;
+            spareRoll(firstRoll, secondRoll);
         }else if(isStrike){
-            roll(firstRoll*2);
-            if(firstRoll!=10){
-                roll(secondRoll*2);
-            }
-            isStrike = false;
+            strikeRoll(firstRoll, secondRoll);
         }
         else{
-            roll(firstRoll);
-            if(firstRoll!=10){
-                roll(secondRoll);
-            }
+            standardRoll(firstRoll, secondRoll);
         }
 
-        if(firstRoll==10){
+        strikeCheck(firstRoll);
+        spareCheck(firstRoll, secondRoll);
+    }
+
+    private void spareRoll(int firstRoll, int secondRoll) {
+        roll(firstRoll * 2);
+        if (firstRoll != 10) {
+            roll(secondRoll);
+        }
+        isSpare = false;
+    }
+
+    private void strikeRoll(int firstRoll, int secondRoll) {
+        roll(firstRoll *2);
+        if(firstRoll !=10){
+            roll(secondRoll *2);
+        }
+        isStrike = false;
+    }
+
+    private void standardRoll(int firstRoll, int secondRoll) {
+        roll(firstRoll);
+        if(firstRoll !=10){
+            roll(secondRoll);
+        }
+    }
+
+    private void strikeCheck(int firstRoll) {
+        if(firstRoll ==10){
             isStrike =  true;
         }
+    }
+
+    private void spareCheck(int firstRoll, int secondRoll) {
         if(firstRoll + secondRoll ==10 && secondRoll != 0){
             isSpare = true;
         }
