@@ -4,6 +4,9 @@ public class Game {
 
 
     private int score = 0;
+    private boolean isSpare = false;
+    private boolean isStrike = false;
+
 
     void roll(int pinsDropped){
         if (pinsDropped <= 10 && pinsDropped >= 0){
@@ -12,8 +15,16 @@ public class Game {
     }
 
     void frame(int firstRoll, int secondRoll){
-        roll(firstRoll);
+        if (isSpare) {
+            roll(firstRoll*2);
+            isSpare = false;
+        }else{
+            roll(firstRoll);
+        }
         roll(secondRoll);
+        if(firstRoll + secondRoll ==10){
+            isSpare = true;
+        }
     }
 
     int score(){
