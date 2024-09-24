@@ -32,6 +32,15 @@ public class GameTest {
         Assertions.assertEquals(testSpareData[4], game.score());
     }
 
+    @ParameterizedTest
+    @MethodSource(value = "testStrikeData")
+    public void testStrikeInFrame(int[] testStrikeData){
+        Game game = new Game();
+        game.frame(testStrikeData[0], testStrikeData[1]);
+        game.frame(testStrikeData[2], testStrikeData[3]);
+        Assertions.assertEquals(testStrikeData[4], game.score());
+    }
+
     @SuppressWarnings("unused")
     public static int[][] testRollData(){
         return new int[][]{{0,0},{6,6},{13,0},{-2,0}};
@@ -45,5 +54,10 @@ public class GameTest {
     @SuppressWarnings("unused")
     public static int[][] testSpareData(){
         return new int[][]{{0,0,0,0,0,0},{6,4,4,3,21},{4,-2,3,1,8}};
+    }
+
+    @SuppressWarnings("unused")
+    public static int[][] testStrikeData(){
+        return new int[][]{{0,0,0,0,0,0},{10,0,4,3,24},{10,0,3,1,18},{10,4,3,1,18},{10,0,8,2,30}};
     }
 }
