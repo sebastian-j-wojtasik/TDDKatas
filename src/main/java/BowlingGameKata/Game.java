@@ -1,5 +1,7 @@
 package BowlingGameKata;
 
+import java.util.List;
+
 public class Game {
 
 
@@ -23,9 +25,33 @@ public class Game {
         else{
             standardRoll(firstRoll, secondRoll);
         }
-
         strikeCheck(firstRoll);
         spareCheck(firstRoll, secondRoll);
+    }
+    void frame(int firstRoll, int secondRoll, int thirdRoll){
+        if (isSpare) {
+            spareRoll(firstRoll, secondRoll);
+        }else if(isStrike){
+            strikeRoll(firstRoll, secondRoll);
+        }
+        else{
+            standardRoll(firstRoll, secondRoll);
+        }
+        strikeCheck(firstRoll);
+        spareCheck(firstRoll, secondRoll);
+    }
+
+    void gamePlayed(List<Integer> frames){
+        frame(frames.get(0),frames.get(1));
+        frame(frames.get(2),frames.get(3));
+        frame(frames.get(4),frames.get(5));
+        frame(frames.get(6),frames.get(7));
+        frame(frames.get(8),frames.get(9));
+        frame(frames.get(10),frames.get(11));
+        frame(frames.get(12),frames.get(13));
+        frame(frames.get(14),frames.get(15));
+        frame(frames.get(16),frames.get(17));
+        frame(frames.get(18),frames.get(19));
     }
 
     private void spareRoll(int firstRoll, int secondRoll) {
