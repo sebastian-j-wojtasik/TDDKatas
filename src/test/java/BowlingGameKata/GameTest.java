@@ -61,9 +61,6 @@ public class GameTest {
     @MethodSource(value = "testGameData")
     public void testGame(List<Integer> testGameData){
         Game game = new Game();
-        System.out.println(testGameData.stream().filter(number -> number > 10).mapToInt(Integer::intValue).sum());
-        System.out.println(testGameData.size());
-        System.out.println(testGameData.get(0));
         game.gamePlayed(testGameData);
         Assertions.assertEquals(testGameData.get(testGameData.size()-1), game.score());
     }
@@ -85,14 +82,15 @@ public class GameTest {
 
     @SuppressWarnings("unused")
     public static int[][] testStrikeData(){
-        return new int[][]{{0,0,0,0,0,0},{10,0,4,3,24},{10,0,3,1,18},{10,4,3,1,18},{10,0,8,2,30}};
+        return new int[][]{{0,0,0,0,0,0},{10,0,4,3,24},{10,0,3,1,18},{10,4,3,1,18},{10,9,4,1,20},{10,0,8,2,30}};
     }
 
     @SuppressWarnings("unused")
     public static Stream<List<Integer>> testGameData(){
         return Stream.of(
                 List.of(4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,80),
-                List.of(10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,100)
+                List.of(10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,190),
+                List.of(10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,10,0,7,204)
                 );
     }
 }

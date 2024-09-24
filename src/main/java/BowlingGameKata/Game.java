@@ -39,6 +39,9 @@ public class Game {
         }
         strikeCheck(firstRoll);
         spareCheck(firstRoll, secondRoll);
+        if(isStrike || isSpare){
+            roll(thirdRoll*2);
+        }
     }
 
     void gamePlayed(List<Integer> frames){
@@ -51,7 +54,12 @@ public class Game {
         frame(frames.get(12),frames.get(13));
         frame(frames.get(14),frames.get(15));
         frame(frames.get(16),frames.get(17));
-        frame(frames.get(18),frames.get(19));
+        if (frames.size()==21)
+        {
+            frame(frames.get(18),frames.get(19));
+        }else if (frames.size()==22){
+            frame(frames.get(18),frames.get(19), frames.get(20));
+        }
     }
 
     private void spareRoll(int firstRoll, int secondRoll) {
