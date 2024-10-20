@@ -2,22 +2,32 @@ package GameOfLife;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public class GameOfLifeTest {
-    @Test
-    void gameOfLifeGridSizeIsTheSameAsInConstructor() {
-        GameOfLife gameOfLife = new GameOfLife(3,3);
+    @ParameterizedTest
+    @MethodSource(value = "gridSizeData")
+    void gameOfLifeGridSizeIsTheSameAsInConstructor(int[] gridSizeData) {
+        GameOfLife gameOfLife = new GameOfLife(gridSizeData[0],gridSizeData[1]);
         int[] gridSize  = gameOfLife.getGridSize();
-        Assertions.assertArrayEquals(gridSize, new int[]{3,3});
+        Assertions.assertArrayEquals(gridSize, new int[]{gridSizeData[0],gridSizeData[1]});
     }
 
     @Test
     void gameIsInitializedWithArrayOfCells(){
         GameOfLife gameOfLife = new GameOfLife(10,10);
         List<Cell> cells = gameOfLife.getCells();
-        boolean isNotEmpty = cells.isEmpty();
-        Assertions.assertFalse(isNotEmpty);
+        boolean isEmpty = cells.isEmpty();
+        Assertions.assertFalse(isEmpty);
+    }
+
+    @SuppressWarnings("unused")
+    public static int[][] gridSizeData(){
+        return new int[][]{{3,3},{7,3},{3,7}};
     }
 }

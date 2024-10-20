@@ -13,7 +13,7 @@ class GameOfLife {
     }
 
     public int[] getGridSize() {
-        return new int[]{grid[0].length, grid[1].length};
+        return new int[]{grid.length, grid[0].length};
     }
 
     public List<Cell> getCells() {
