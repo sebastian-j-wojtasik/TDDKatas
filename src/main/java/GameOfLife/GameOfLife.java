@@ -1,6 +1,9 @@
 package GameOfLife;
 
+import java.util.Arrays;
 import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 class GameOfLife {
     private Cell[][] grid;
@@ -14,6 +17,6 @@ class GameOfLife {
     }
 
     public List<Cell> getCells() {
-        return List.of();
+        return Arrays.stream(grid).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 }
