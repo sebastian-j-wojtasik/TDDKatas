@@ -6,17 +6,22 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class GameOfLife {
-    private Cell[][] grid;
+    private final Cell[][] grid;
 
-    public GameOfLife(int rows, int columns) {
+    GameOfLife(int rows, int columns) {
         this.grid = new Cell[rows][columns];
+        for (int row = 0; row < rows; row++) {
+            for (int column = 0; column < columns; column++) {
+                grid[row][column] = new Cell();
+            }
+        }
     }
 
-    public int[] getGridSize() {
+    int[] getGridSize() {
         return new int[]{grid.length, grid[0].length};
     }
 
-    public List<Cell> getCells() {
+    List<Cell> getCells() {
         return Arrays.stream(grid).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 }
