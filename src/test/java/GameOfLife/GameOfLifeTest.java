@@ -27,6 +27,15 @@ public class GameOfLifeTest {
         Assertions.assertFalse(isEmpty);
     }
 
+
+    @Test
+    void firstCellInFirstPositionHaveNeighbours() {
+        GameOfLife gameOfLife = new GameOfLife(2,2);
+        Cell cell = gameOfLife.getCell(0,0);
+        boolean hasNeighbours = cell.getNeighbours().isEmpty;
+        Assertions.assertTrue(hasNeighbours);
+    }
+
     @SuppressWarnings("unused")
     public static int[][] gridSizeData(){
         return new int[][]{{3,3},{7,3},{3,7}};
