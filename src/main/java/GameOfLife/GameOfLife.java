@@ -6,7 +6,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 class GameOfLife {
-    private final Cell[][] grid;
+    private Cell[][] grid;
 
     GameOfLife(int rows, int columns) {
         this.grid = new Cell[rows][columns];
@@ -25,7 +25,31 @@ class GameOfLife {
         return Arrays.stream(grid).flatMap(Arrays::stream).collect(Collectors.toList());
     }
 
-    public Cell getCell(int x, int y) {
+    Cell getCell(int x, int y) {
         return grid[x][y];
+    }
+
+    void update() {
+        Cell[][] copyGrid = createGridCopy();
+        for(int row = 0; row < this.grid.length; row++){
+            for(int column = 0; column < this.grid[0].length; column++){
+                Cell cell = grid[row][column];
+                long livingNeighbours = cell.getNeighbours(getCells()).stream().filter(c->c.isAlive()).count();
+                if(livingNeighbours<2){
+                    copyGrid[row][column].setAlive(false);
+                }
+            }
+        }
+        this.grid = copyGrid;
+    }
+
+    private Cell[][] createGridCopy() {
+        Cell[][] copyGrid= new Cell[this.grid.length][this.grid[0].length];
+        for(int row = 0; row < this.grid.length; row++){
+            for(int column = 0; column < this.grid[0].length; column++){
+                copyGrid[row][column]= new Cell(grid[row][column]);
+            }
+        }
+        return copyGrid;
     }
 }

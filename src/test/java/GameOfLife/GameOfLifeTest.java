@@ -44,9 +44,10 @@ public class GameOfLifeTest {
         cell.setAlive(true);
         List<Cell> cells = gameOfLife.getCells();
         List<Cell> neighbours = cell.getNeighbours(cells);
-        neighbours = neighbours.stream().flatMap(c -> c.setAlive(false)).collect(Collectors.toList());
+        neighbours.forEach(c->c.setAlive(false));
         gameOfLife.update();
-        Assertions.assertTrue(cell.isAlive(), false);
+        cell = gameOfLife.getCell(2,2);
+        Assertions.assertFalse(cell.isAlive());
     }
 
     @SuppressWarnings("unused")

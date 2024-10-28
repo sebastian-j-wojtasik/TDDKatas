@@ -5,16 +5,24 @@ import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
-public class Cell {
+class Cell {
     private final int x;
     private final int y;
+    private boolean alive;
 
     public Cell(int x, int y) {
         this.x = x;
         this.y = y;
+        this.alive = Math.random() < 0.5;
     }
 
-    public List<Cell> getNeighbours(List<Cell> grid) {
+    public Cell(Cell cell) {
+        this.x = cell.getX();
+        this.y = cell.getY();
+        this.alive = cell.isAlive();
+    }
+
+    List<Cell> getNeighbours(List<Cell> grid) {
         return grid.stream().filter(this::isNeighbour).collect(Collectors.toList());
     }
 
@@ -28,5 +36,13 @@ public class Cell {
 
     private int getX() {
         return this.x;
+    }
+
+    void setAlive(boolean alive) {
+        this.alive = alive;
+    }
+
+    boolean isAlive() {
+        return this.alive;
     }
 }
