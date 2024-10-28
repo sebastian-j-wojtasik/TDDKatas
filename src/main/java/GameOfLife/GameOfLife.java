@@ -35,7 +35,9 @@ class GameOfLife {
             for(int column = 0; column < this.grid[0].length; column++){
                 Cell cell = grid[row][column];
                 long livingNeighbours = cell.getNeighbours(getCells()).stream().filter(c->c.isAlive()).count();
-                if(livingNeighbours<2){
+                if(livingNeighbours<2 && cell.isAlive()){
+                    copyGrid[row][column].setAlive(false);
+                }if(livingNeighbours>3 && cell.isAlive()){
                     copyGrid[row][column].setAlive(false);
                 }
             }
