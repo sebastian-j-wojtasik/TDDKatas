@@ -39,6 +39,8 @@ class GameOfLife {
                     copyGrid[row][column].setAlive(false);
                 }if(livingNeighbours>3 && cell.isAlive()){
                     copyGrid[row][column].setAlive(false);
+                }else if( livingNeighbours==3 && !cell.isAlive()){
+                    copyGrid[row][column].setAlive(true);
                 }
             }
         }
