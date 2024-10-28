@@ -30,14 +30,18 @@ class GameOfLife {
     }
 
     void play(){
-        for (int i = 0; i < 100; i++) {
-            for (int row = 0; row < grid.length; row++) {
-                for (int column = 0; column < grid[0].length; column++) {
-                    System.out.print(grid[row][column].isAlive() ? " A " : " D ");
-                }
-                System.out.println();
-            }
+        int generations = 100;
+        for (int i = 0; i < generations; i++) {
+            printTable();
             update();
+        }
+    }
+
+    private void printTable() {
+        for (int row = 0; row < grid.length; row++) {
+            for (int column = 0; column < grid[0].length; column++) {
+                System.out.print(grid[row][column].isAlive() ? " A " : " D ");
+            }
             System.out.println();
         }
     }
@@ -47,20 +51,22 @@ class GameOfLife {
         for(int row = 0; row < this.grid.length; row++){
             for(int column = 0; column < this.grid[0].length; column++){
                 Cell cell = grid[row][column];
-                long livingNeighbours = cell.getNeighbours(getCells()).stream().filter(c->c.isAlive()).count();
-                if(livingNeighbours<2 && cell.isAlive()){
-                    copyGrid[row][column].setAlive(false);
-                }if(livingNeighbours>3 && cell.isAlive()){
-                    copyGrid[row][column].setAlive(false);
-                }else if( livingNeighbours==3 && !cell.isAlive()){
-                    copyGrid[row][column].setAlive(true);
+                long livingNeighbours = cell.getLiveNeighbours(getCells());
+                if(cell.isAlive()){
+                    if(livingNeighbours<2 || livingNeighbours>3){
+                        copyGrid[row][column].setAlive(false);
+                    }
+                }else{
+                    if(livingNeighbours==3){
+                        copyGrid[row][column].setAlive(true);
+                    }
                 }
             }
         }
         this.grid = copyGrid;
     }
 
-    private Cell[][] createGridCopy() {
+    private Cell[][] createGridCopy(){
         Cell[][] copyGrid= new Cell[this.grid.length][this.grid[0].length];
         for(int row = 0; row < this.grid.length; row++){
             for(int column = 0; column < this.grid[0].length; column++){

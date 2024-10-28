@@ -26,6 +26,10 @@ class Cell {
         return grid.stream().filter(this::isNeighbour).collect(Collectors.toList());
     }
 
+    long getLiveNeighbours(List<Cell> grid){
+        return getNeighbours(grid).stream().filter(c->c.isAlive()).count();
+    }
+
     private boolean isNeighbour(Cell cell) {
         return cell != this && (cell.getX() >= this.getX() - 1 && cell.getX() <= this.getX() + 1) && (cell.getY() >= this.getY() - 1 && cell.getY() <= this.getY() + 1);
     }
