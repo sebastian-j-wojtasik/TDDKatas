@@ -28,16 +28,21 @@ public class GameOfLifeTest {
     }
 
 
-    @Test
-    void firstCellInFirstPositionHaveNeighbours() {
-        GameOfLife gameOfLife = new GameOfLife(2,2);
-        Cell cell = gameOfLife.getCell(0,0);
-        boolean hasNeighbours = cell.getNeighbours().isEmpty;
-        Assertions.assertTrue(hasNeighbours);
+    @ParameterizedTest
+    @MethodSource(value = "neighboursData")
+    void firstCellInFirstPositionHaveNeighbours(int[] neighboursData) {
+        GameOfLife gameOfLife = new GameOfLife(neighboursData[0],neighboursData[1]);
+        Cell cell = gameOfLife.getCell(neighboursData[2],neighboursData[3]);
+        boolean hasNeighbours = cell.getNeighbours(gameOfLife.getCells()).isEmpty();
+        Assertions.assertFalse(hasNeighbours);
     }
 
     @SuppressWarnings("unused")
     public static int[][] gridSizeData(){
         return new int[][]{{3,3},{7,3},{3,7}};
+    }
+    @SuppressWarnings("unused")
+    public static int[][] neighboursData(){
+        return new int[][]{{3,3,2,2},{7,7,3,2},{3,7,1,2}};
     }
 }

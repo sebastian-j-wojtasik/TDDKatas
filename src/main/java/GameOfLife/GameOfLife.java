@@ -12,7 +12,7 @@ class GameOfLife {
         this.grid = new Cell[rows][columns];
         for (int row = 0; row < rows; row++) {
             for (int column = 0; column < columns; column++) {
-                grid[row][column] = new Cell();
+                grid[row][column] = new Cell(row,column);
             }
         }
     }
@@ -23,5 +23,9 @@ class GameOfLife {
 
     List<Cell> getCells() {
         return Arrays.stream(grid).flatMap(Arrays::stream).collect(Collectors.toList());
+    }
+
+    public Cell getCell(int x, int y) {
+        return grid[x][y];
     }
 }
