@@ -29,6 +29,19 @@ class GameOfLife {
         return grid[x][y];
     }
 
+    void play(){
+        for (int i = 0; i < 100; i++) {
+            for (int row = 0; row < grid.length; row++) {
+                for (int column = 0; column < grid[0].length; column++) {
+                    System.out.print(grid[row][column].isAlive() ? " A " : " D ");
+                }
+                System.out.println();
+            }
+            update();
+            System.out.println();
+        }
+    }
+
     void update() {
         Cell[][] copyGrid = createGridCopy();
         for(int row = 0; row < this.grid.length; row++){

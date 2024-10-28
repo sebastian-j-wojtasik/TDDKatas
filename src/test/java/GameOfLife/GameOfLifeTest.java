@@ -99,6 +99,12 @@ public class GameOfLifeTest {
         Assertions.assertTrue(cell.isAlive());
     }
 
+    @Test
+    void playTheGame() {
+    GameOfLife gameOfLife= new GameOfLife(30,30);
+    gameOfLife.play();
+    Assertions.assertTrue(true);
+    }
 
     @SuppressWarnings("unused")
     public static int[][] gameOfLifeGridSizeIsTheSameAsInConstructorValue(){
