@@ -37,6 +37,18 @@ public class GameOfLifeTest {
         Assertions.assertFalse(hasNeighbours);
     }
 
+    @Test
+    void livingCellWithLessThanTwoLivingNeighboursDies() {
+        GameOfLife gameOfLife = new GameOfLife(5,5);
+        Cell cell = gameOfLife.getCell(2,2);
+        cell.setAlive(true);
+        List<Cell> cells = gameOfLife.getCells();
+        List<Cell> neighbours = cell.getNeighbours(cells);
+        neighbours = neighbours.stream().flatMap(c -> c.setAlive(false)).collect(Collectors.toList());
+        gameOfLife.update();
+        Assertions.assertTrue(cell.isAlive(), false);
+    }
+
     @SuppressWarnings("unused")
     public static int[][] gridSizeData(){
         return new int[][]{{3,3},{7,3},{3,7}};

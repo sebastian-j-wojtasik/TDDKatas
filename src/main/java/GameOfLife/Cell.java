@@ -19,8 +19,7 @@ public class Cell {
     }
 
     private boolean isNeighbour(Cell cell) {
-
-        return (cell.getX() >= this.getX() - 1 && cell.getX() <= this.getX() + 1) && (cell.getY() >= this.getY() - 1 && cell.getY() <= this.getY() + 1);
+        return cell != this && (cell.getX() >= this.getX() - 1 && cell.getX() <= this.getX() + 1) && (cell.getY() >= this.getY() - 1 && cell.getY() <= this.getY() + 1);
     }
 
     private int getY() {
@@ -29,13 +28,5 @@ public class Cell {
 
     private int getX() {
         return this.x;
-    }
-
-    @Override
-    public String toString() {
-        return "Cell{" +
-                "x=" + x +
-                ", y=" + y +
-                '}';
     }
 }
