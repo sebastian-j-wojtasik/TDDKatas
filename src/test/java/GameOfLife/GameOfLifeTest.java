@@ -12,11 +12,11 @@ import java.util.stream.Stream;
 
 public class GameOfLifeTest {
     @ParameterizedTest
-    @MethodSource(value = "gridSizeData")
-    void gameOfLifeGridSizeIsTheSameAsInConstructor(int[] gridSizeData) {
-        GameOfLife gameOfLife = new GameOfLife(gridSizeData[0],gridSizeData[1]);
+    @MethodSource(value = "gameOfLifeGridSizeIsTheSameAsInConstructorValue")
+    void gameOfLifeGridSizeIsTheSameAsInConstructor(int[] data) {
+        GameOfLife gameOfLife = new GameOfLife(data[0],data[1]);
         int[] gridSize  = gameOfLife.getGridSize();
-        Assertions.assertArrayEquals(gridSize, new int[]{gridSizeData[0],gridSizeData[1]});
+        Assertions.assertArrayEquals(gridSize, new int[]{data[0],data[1]});
     }
 
     @Test
@@ -29,10 +29,10 @@ public class GameOfLifeTest {
 
 
     @ParameterizedTest
-    @MethodSource(value = "neighboursData")
-    void firstCellInFirstPositionHaveNeighbours(int[] neighboursData) {
-        GameOfLife gameOfLife = new GameOfLife(neighboursData[0],neighboursData[1]);
-        Cell cell = gameOfLife.getCell(neighboursData[2],neighboursData[3]);
+    @MethodSource(value = "firstCellInFirstPositionHaveNeighboursValue")
+    void firstCellInFirstPositionHaveNeighbours(int[] data) {
+        GameOfLife gameOfLife = new GameOfLife(data[0],data[1]);
+        Cell cell = gameOfLife.getCell(data[2],data[3]);
         boolean hasNeighbours = cell.getNeighbours(gameOfLife.getCells()).isEmpty();
         Assertions.assertFalse(hasNeighbours);
     }
@@ -50,12 +50,34 @@ public class GameOfLifeTest {
         Assertions.assertFalse(cell.isAlive());
     }
 
+    @ParameterizedTest
+    @MethodSource(value="livingCellWithTwoOrThreeNeighboursSurviveValue")
+    void livingCellWithTwoOrThreeNeighboursSurvive(int[] data) {
+        GameOfLife gameOfLife = new GameOfLife(5,5);
+        Cell cell = gameOfLife.getCell(2,2);
+        cell.setAlive(true);
+        List<Cell> cells = gameOfLife.getCells();
+        List<Cell> neighbours = cell.getNeighbours(cells);
+        neighbours.forEach(c->c.setAlive(false));
+        for (int i = 1; i <= data[0]; i++) {
+            neighbours.get(i).setAlive(true);
+        }
+        gameOfLife.update();
+        cell = gameOfLife.getCell(2,2);
+        Assertions.assertTrue(cell.isAlive());
+    }
+
     @SuppressWarnings("unused")
-    public static int[][] gridSizeData(){
+    public static int[][] gameOfLifeGridSizeIsTheSameAsInConstructorValue(){
         return new int[][]{{3,3},{7,3},{3,7}};
     }
     @SuppressWarnings("unused")
-    public static int[][] neighboursData(){
+    public static int[][] firstCellInFirstPositionHaveNeighboursValue(){
         return new int[][]{{3,3,2,2},{7,7,3,2},{3,7,1,2}};
     }
+    @SuppressWarnings("unused")
+    public static int[][] livingCellWithTwoOrThreeNeighboursSurviveValue(){
+        return new int[][]{{2},{3}};
+    }
+
 }
