@@ -83,6 +83,23 @@ public class GameOfLifeTest {
         Assertions.assertFalse(cell.isAlive());
     }
 
+    @Test
+    void deadCellWithExactlyThreeNeighboursResurrect() {
+        GameOfLife gameOfLife = new GameOfLife(5,5);
+        Cell cell = gameOfLife.getCell(2,2);
+        cell.setAlive(false);
+        List<Cell> cells = gameOfLife.getCells();
+        List<Cell> neighbours = cell.getNeighbours(cells);
+        neighbours.forEach(c->c.setAlive(false));
+        for (int i = 1; i <= 3; i++) {
+            neighbours.get(i).setAlive(true);
+        }
+        gameOfLife.update();
+        cell = gameOfLife.getCell(2,2);
+        Assertions.assertTrue(cell.isAlive());
+    }
+
+
     @SuppressWarnings("unused")
     public static int[][] gameOfLifeGridSizeIsTheSameAsInConstructorValue(){
         return new int[][]{{3,3},{7,3},{3,7}};
