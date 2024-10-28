@@ -67,6 +67,22 @@ public class GameOfLifeTest {
         Assertions.assertTrue(cell.isAlive());
     }
 
+    @Test
+    void livingCellWithMoreThaThreeNeighboursDies() {
+        GameOfLife gameOfLife = new GameOfLife(5,5);
+        Cell cell = gameOfLife.getCell(2,2);
+        cell.setAlive(true);
+        List<Cell> cells = gameOfLife.getCells();
+        List<Cell> neighbours = cell.getNeighbours(cells);
+        neighbours.forEach(c->c.setAlive(false));
+        for (int i = 1; i <= 4; i++) {
+            neighbours.get(i).setAlive(true);
+        }
+        gameOfLife.update();
+        cell = gameOfLife.getCell(2,2);
+        Assertions.assertFalse(cell.isAlive());
+    }
+
     @SuppressWarnings("unused")
     public static int[][] gameOfLifeGridSizeIsTheSameAsInConstructorValue(){
         return new int[][]{{3,3},{7,3},{3,7}};
