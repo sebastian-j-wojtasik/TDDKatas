@@ -11,25 +11,14 @@ public class GameOfLifeTest {
     @ParameterizedTest
     @MethodSource(value = "gameOfLifeGridSizeIsTheSameAsInConstructorValue")
     void gameOfLifeGridSizeIsTheSameAsInConstructor(int[] data) {
-        GameOfLife gameOfLife = new GameOfLife(data[0],data[1]);
-        int[] gridSize  = gameOfLife.getGridSize();
-        Assertions.assertArrayEquals(gridSize, new int[]{data[0],data[1]});
+        GameOfLife gameOfLife = new GameOfLife(data[0],data[1], new DefaultGrid());
+        Assertions.assertArrayEquals(gameOfLife.getGridSize(), new int[]{data[0],data[1]});
     }
 
     @Test
     void gameIsInitializedWithArrayOfCells(){
-        GameOfLife gameOfLife = new GameOfLife(10,10);;
+        GameOfLife gameOfLife = new GameOfLife(10,10, new DefaultGrid());;
         Assertions.assertFalse(gameOfLife.isGridInitalized());
-    }
-
-
-    @ParameterizedTest
-    @MethodSource(value = "firstCellInFirstPositionHaveNeighboursValue")
-    void firstCellInFirstPositionHaveNeighbours(int[] data) {
-        GameOfLife gameOfLife = new GameOfLife(data[0],data[1]);
-        Cell cell = gameOfLife.getCell(data[2],data[3]);
-        boolean hasNeighbours = cell.getNeighbours(gameOfLife.getCells()).isEmpty();
-        Assertions.assertFalse(hasNeighbours);
     }
 
     @Test

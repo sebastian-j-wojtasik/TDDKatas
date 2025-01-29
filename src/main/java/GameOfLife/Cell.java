@@ -22,6 +22,12 @@ class Cell {
         this.alive = cell.isAlive();
     }
 
+    public Cell(int x, int y,boolean alive){
+        this.x = x;
+        this.y = y;
+        this.alive = alive;
+    }
+
     List<Cell> getNeighbours(List<Cell> grid) {
         return grid.stream().filter(this::isNeighbour).collect(Collectors.toList());
     }

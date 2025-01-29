@@ -17,6 +17,10 @@ class GameOfLife {
         }
     }
 
+    GameOfLife(int rows, int columns, GridFactory gridFactory) {
+        this.grid = gridFactory.createGrid(rows, columns);
+    }
+
     int[] getGridSize() {
         return new int[]{grid.length, grid[0].length};
     }
