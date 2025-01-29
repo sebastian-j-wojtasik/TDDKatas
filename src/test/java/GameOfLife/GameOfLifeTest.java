@@ -6,9 +6,6 @@ import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 public class GameOfLifeTest {
     @ParameterizedTest
@@ -21,10 +18,8 @@ public class GameOfLifeTest {
 
     @Test
     void gameIsInitializedWithArrayOfCells(){
-        GameOfLife gameOfLife = new GameOfLife(10,10);
-        List<Cell> cells = gameOfLife.getCells().stream().filter(Objects::nonNull).collect(Collectors.toList());
-        boolean isEmpty = cells.isEmpty();
-        Assertions.assertFalse(isEmpty);
+        GameOfLife gameOfLife = new GameOfLife(10,10);;
+        Assertions.assertFalse(gameOfLife.isGridInitalized());
     }
 
 

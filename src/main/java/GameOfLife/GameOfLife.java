@@ -2,8 +2,8 @@ package GameOfLife;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 class GameOfLife {
     private Cell[][] grid;
@@ -74,5 +74,9 @@ class GameOfLife {
             }
         }
         return copyGrid;
+    }
+
+    public boolean isGridInitalized() {
+        return getCells().stream().filter(Objects::nonNull).collect(Collectors.toList()).isEmpty();
     }
 }
