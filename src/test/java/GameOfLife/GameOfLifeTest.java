@@ -23,64 +23,62 @@ public class GameOfLifeTest {
 
     @Test
     void livingCellWithLessThanTwoLivingNeighboursDies() {
-        GameOfLife gameOfLife = new GameOfLife(5,5);
-        Cell cell = gameOfLife.getCell(2,2);
-        cell.setAlive(true);
-        List<Cell> cells = gameOfLife.getCells();
-        List<Cell> neighbours = cell.getNeighbours(cells);
-        neighbours.forEach(c->c.setAlive(false));
+        GameOfLife gameOfLife = new GameOfLife(3,3, new CustomGrid(
+                new int[][]{
+                        {0,0,0},
+                        {0,1,0},
+                        {0,0,0}
+                }));
         gameOfLife.update();
-        cell = gameOfLife.getCell(2,2);
-        Assertions.assertFalse(cell.isAlive());
+        Assertions.assertFalse(gameOfLife.getCell(1,1).isAlive());
     }
 
-    @ParameterizedTest
-    @MethodSource(value="livingCellWithTwoOrThreeNeighboursSurviveValue")
-    void livingCellWithTwoOrThreeNeighboursSurvive(int[] data) {
-        GameOfLife gameOfLife = new GameOfLife(5,5);
-        Cell cell = gameOfLife.getCell(2,2);
-        cell.setAlive(true);
-        List<Cell> cells = gameOfLife.getCells();
-        List<Cell> neighbours = cell.getNeighbours(cells);
-        neighbours.forEach(c->c.setAlive(false));
-        for (int i = 1; i <= data[0]; i++) {
-            neighbours.get(i).setAlive(true);
-        }
+    @Test
+    void livingCellWithTwoNeighboursSurvive() {
+        GameOfLife gameOfLife = new GameOfLife(3,3, new CustomGrid(
+                new int[][]{
+                        {0,1,0},
+                        {0,1,0},
+                        {0,1,0}
+                }));
         gameOfLife.update();
-        cell = gameOfLife.getCell(2,2);
-        Assertions.assertTrue(cell.isAlive());
+        Assertions.assertTrue(gameOfLife.getCell(1,1).isAlive());
+    }
+
+    @Test
+    void livingCellWithThreeNeighboursSurvive() {
+        GameOfLife gameOfLife = new GameOfLife(3,3, new CustomGrid(
+                new int[][]{
+                        {0,1,0},
+                        {0,1,1},
+                        {0,1,0}
+                }));
+        gameOfLife.update();
+        Assertions.assertTrue(gameOfLife.getCell(1,1).isAlive());
     }
 
     @Test
     void livingCellWithMoreThaThreeNeighboursDies() {
-        GameOfLife gameOfLife = new GameOfLife(5,5);
-        Cell cell = gameOfLife.getCell(2,2);
-        cell.setAlive(true);
-        List<Cell> cells = gameOfLife.getCells();
-        List<Cell> neighbours = cell.getNeighbours(cells);
-        neighbours.forEach(c->c.setAlive(false));
-        for (int i = 1; i <= 4; i++) {
-            neighbours.get(i).setAlive(true);
-        }
+        GameOfLife gameOfLife = new GameOfLife(3,3, new CustomGrid(
+                new int[][]{
+                        {0,1,1},
+                        {0,1,1},
+                        {0,1,0}
+                }));
         gameOfLife.update();
-        cell = gameOfLife.getCell(2,2);
-        Assertions.assertFalse(cell.isAlive());
+        Assertions.assertFalse(gameOfLife.getCell(1,1).isAlive());
     }
 
     @Test
     void deadCellWithExactlyThreeNeighboursResurrect() {
-        GameOfLife gameOfLife = new GameOfLife(5,5);
-        Cell cell = gameOfLife.getCell(2,2);
-        cell.setAlive(false);
-        List<Cell> cells = gameOfLife.getCells();
-        List<Cell> neighbours = cell.getNeighbours(cells);
-        neighbours.forEach(c->c.setAlive(false));
-        for (int i = 1; i <= 3; i++) {
-            neighbours.get(i).setAlive(true);
-        }
+        GameOfLife gameOfLife = new GameOfLife(3,3, new CustomGrid(
+                new int[][]{
+                        {0,1,1},
+                        {0,0,0},
+                        {0,1,0}
+                }));
         gameOfLife.update();
-        cell = gameOfLife.getCell(2,2);
-        Assertions.assertTrue(cell.isAlive());
+        Assertions.assertTrue(gameOfLife.getCell(1,1).isAlive());
     }
 
     @Test
