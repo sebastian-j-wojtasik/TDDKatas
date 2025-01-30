@@ -14,4 +14,8 @@ public class ChristmasLights {
     public void configure(Map<String, Integer[]> instructions) {
 
     }
+
+    public boolean isTurnedOn(int x, int y) {
+        return grid[x][y] == 1;
+    }
 }

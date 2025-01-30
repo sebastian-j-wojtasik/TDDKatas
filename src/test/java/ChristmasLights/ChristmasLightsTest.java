@@ -15,4 +15,13 @@ public class ChristmasLightsTest {
         christmasLights.configure(instructions);
         Assertions.assertTrue(christmasLights.areAllOff());
     }
+
+    @Test
+    void testTurningOnTheLight(){
+        ChristmasLights christmasLights = new ChristmasLights();
+        Map<String, Integer[]> instructions = new HashMap<>();
+        instructions.put("On", new Integer[]{0,0});
+        christmasLights.configure(instructions);
+        Assertions.assertTrue(christmasLights.isTurnedOn(0,0));
+    }
 }
