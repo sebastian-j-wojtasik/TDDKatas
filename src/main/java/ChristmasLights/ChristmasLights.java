@@ -20,6 +20,16 @@ class ChristmasLights {
                         grid[i][j] = 1;
                     }
                 }
+            }else if("toggle".equals(instruction.getOperation())){
+                for (int i = instruction.getFrom()[0]; i <=instruction.getThrough()[0]; i++) {
+                    for (int j = instruction.getFrom()[1]; j <=instruction.getThrough()[1]; j++) {
+                        if (grid[i][j] == 1){
+                            grid[i][j] = 0;
+                        }else{
+                            grid[i][j] = 1;
+                        }
+                    }
+                }
             }
         }
     }
@@ -31,9 +41,18 @@ class ChristmasLights {
     public boolean areOn(int[] from, int[] through) {
         for (int i = from[0]; i <=through[0]; i++) {
             for (int j = from[1]; j <= through[1]; j++) {
-                if(grid[i][j]==1){
-                    continue;
-                }else{
+                if(grid[i][j]!=1){
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
+
+    public boolean areOff(int[] from, int[] through) {
+        for (int i = from[0]; i <=through[0]; i++) {
+            for (int j = from[1]; j <= through[1]; j++) {
+                if(grid[i][j]!=0){
                     return false;
                 }
             }
