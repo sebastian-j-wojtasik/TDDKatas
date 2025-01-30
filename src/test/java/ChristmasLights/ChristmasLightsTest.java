@@ -34,4 +34,16 @@ class ChristmasLightsTest {
         christmasLights.configure(instructions);
         Assertions.assertTrue(christmasLights.areOn(new int[]{0, 0}, new int[]{999, 0}));
     }
+
+    @Test
+    void testToggleTheLights(){
+        ChristmasLights christmasLights = new ChristmasLights();
+        List<Instruction> instructions = new ArrayList<>();
+        instructions.add(new Instruction("on", new int[]{0, 0}, new int[]{0, 500}));
+        instructions.add(new Instruction("toggle", new int[]{0, 0}, new int[]{0, 999}));
+        christmasLights.configure(instructions);
+        Assertions.assertTrue(christmasLights.areOff(new int[]{0, 0}, new int[]{0, 500}));
+        Assertions.assertTrue(christmasLights.areOn(new int[]{0, 501}, new int[]{0, 999}));
+    }
+
 }
