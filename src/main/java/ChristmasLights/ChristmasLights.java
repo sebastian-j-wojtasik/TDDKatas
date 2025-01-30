@@ -6,7 +6,7 @@ import java.util.Map;
 
 class ChristmasLights {
 
-    private final int[][] grid = new int[999][999];
+    private final int[][] grid = new int[1000][1000];
 
     public boolean areAllOff() {
        return Arrays.stream(grid).flatMapToInt(Arrays::stream).filter(a -> a != 0).findAny().isEmpty();
@@ -29,6 +29,15 @@ class ChristmasLights {
     }
 
     public boolean areOn(int[] from, int[] through) {
-        return false;
+        for (int i = from[0]; i <=through[0]; i++) {
+            for (int j = from[1]; j <= through[1]; j++) {
+                if(grid[i][j]==1){
+                    continue;
+                }else{
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 }
