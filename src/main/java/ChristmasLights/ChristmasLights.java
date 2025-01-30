@@ -65,4 +65,8 @@ class ChristmasLights {
         }
         return true;
     }
+
+    public boolean isThisAmountOn(int i) {
+        return Arrays.stream(grid).flatMapToInt(Arrays::stream).filter(a -> a != 0).count() == i;
+    }
 }
