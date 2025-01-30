@@ -30,6 +30,12 @@ class ChristmasLights {
                         }
                     }
                 }
+            }else if("off".equals(instruction.getOperation())){
+                for (int i = instruction.getFrom()[0]; i <=instruction.getThrough()[0]; i++) {
+                    for (int j = instruction.getFrom()[1]; j <=instruction.getThrough()[1]; j++) {
+                        grid[i][j] = 0;
+                    }
+                }
             }
         }
     }
