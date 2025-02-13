@@ -4,6 +4,7 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class GossipingTest {
@@ -21,13 +22,14 @@ public class GossipingTest {
     @Test
     void gossipingWithTwoDriversOnOneStop(){
         Gossiping gossiping = new Gossiping();
-        List<List<Integer>> routs = new ArrayList<>();
-        routs.add(List.of(1));
-        routs.add(List.of(1));
+        List<List<Integer>> routs = Arrays.asList(
+                List.of(1),
+                List.of(1)
+        );
 
         int stops = gossiping.gossip(routs);
 
-        Assertions.assertEquals(1,stops);
+        Assertions.assertEquals(1, stops);
     }
 
 }
